@@ -64,6 +64,7 @@ export class CustomTitleComponent implements OnInit {
       },
       // error
       (error) => {
+        alert('Already exists !');
         console.log(error.error.message);
       },
       // Success
