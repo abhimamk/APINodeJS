@@ -22,7 +22,11 @@ export class CustomTitleService {
     return this.http.put<Title>(this.URL + `/updateCustomTitle/${id}`, data);
   }
 
-  deleteTitle(id): Observable<any> {
+  deleteTitle(id: string): Observable<any> {
     return this.http.delete<Title>(this.URL + `/deleteCustomTitle/${id}`);
+  }
+
+  searchTitle(item): Observable<any>{
+    return this.http.post<Title>( this.URL + `/searchTitle`, item);
   }
 }

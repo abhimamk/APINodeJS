@@ -12,4 +12,7 @@ module.exports = function(app) {
 
     // Delete Custom Title
     app.delete('/deleteCustomTitle/:id', CustomTitles.deleteCustomTitle);
+
+    // Search Title
+    app.post('/searchTitle', CustomTitles.searchTitle);
 }

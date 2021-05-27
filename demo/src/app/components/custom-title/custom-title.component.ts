@@ -117,6 +117,19 @@ export class CustomTitleComponent implements OnInit {
       }
     );
   }
+
+  // Search Title
+  search(value: string): any {
+    const data = {
+      search: value
+    };
+    this.customTitleService.searchTitle(data).subscribe(
+      (res) => {
+        return this.customTitle = res.newResponse;
+      }
+    );
+  }
+
   // Clear
   clear(): any {
     this.titleObj = new Title();
