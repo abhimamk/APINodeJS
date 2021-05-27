@@ -8,6 +8,7 @@ import { NotesComponent } from './components/notes/notes.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
 import { CustomTitleComponent } from './components/custom-title/custom-title.component';
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CustomTitleComponent } from './components/custom-title/custom-title.com
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

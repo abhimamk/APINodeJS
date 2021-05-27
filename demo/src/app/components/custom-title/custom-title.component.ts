@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomTitleService } from './custom-title.service';
 import { Title } from './customTitle.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-custom-title',
@@ -17,6 +18,7 @@ export class CustomTitleComponent implements OnInit {
   constructor(
     private customTitleService: CustomTitleService,
     private formBuilder: FormBuilder,
+    public toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -34,11 +36,26 @@ export class CustomTitleComponent implements OnInit {
 
   get f(): any { return this.customTitleForm.controls; }
 
+  toasterSuccess(responseGood): any {
+    this.toastr.success('', responseGood, {
+      timeOut: 2000,
+      progressBar: true,
+      progressAnimation: 'decreasing'
+    });
+  }
+
+  toasterError(responseError): any {
+    this.toastr.error('', responseError, {
+      timeOut: 2000,
+      progressBar: true,
+      progressAnimation: 'decreasing'
+    });
+  }
 
   getAllCustomTitle(): any {
     this.customTitleService.getAllCustomTitle().subscribe(
       (res: Title[]) => {
-        this.customTitle = res;
+        this.customTitle = res.reverse();
       }
     );
   }
@@ -60,12 +77,11 @@ export class CustomTitleComponent implements OnInit {
   addNewTitle(data): void {
     this.customTitleService.AddNewTitle(data).subscribe(
       (res) => {
-        alert(res.message);
+        this.toasterSuccess(res.message);
       },
       // error
       (error) => {
-        alert('Already exists !');
-        console.log(error.error.message);
+        this.toasterError(error.error.message);
       },
       // Success
       () => {
@@ -78,11 +94,11 @@ export class CustomTitleComponent implements OnInit {
   updateTitle(id, data): void {
     this.customTitleService.updateTitle(id, data).subscribe(
       (res) => {
-        alert(res.message);
+        this.toasterSuccess(res.message);
       },
       // error
       (error) => {
-        console.log(error.error.message);
+        this.toasterError(error.error.message);
       },
       // Success
       () => {
@@ -105,11 +121,11 @@ export class CustomTitleComponent implements OnInit {
   delete(id): void {
     this.customTitleService.deleteTitle(id).subscribe(
       (res) => {
-        alert(res.message);
+        this.toasterSuccess(res.message);
       },
       // error
       (error) => {
-        console.log(error.error.message);
+        this.toasterError(error.error.message);
       },
       // Success
       () => {
